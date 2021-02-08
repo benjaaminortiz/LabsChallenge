@@ -1,10 +1,14 @@
-var express = require('express');
-var app = express();
-
-server.get('/', (req, res, next) => {
-	const q= req.query.q; 
-	fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${q}&offset=0&limit=50`).then (data=>data.json()).then (response=>res.send(response))
-});
+const express = require ('express');
+const search = require ('./src/routes.js');
+const app = express ();
+const cors = require ('cors');
 
 
-app.listen(3001);
+app.use(express.json())
+app.use(cors())
+
+app.use('/api', search)
+
+app.listen (3001, () => {
+    console.log('The app is running on port 3001')
+})
